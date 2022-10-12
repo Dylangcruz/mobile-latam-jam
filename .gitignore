@@ -44,3 +44,6 @@ Icon?
 ehthumbs.db
 Thumbs.db
 *.log
+MobileLatamJam/Logs/AssetImportWorker0.log
+MobileLatamJam/Logs/AssetImportWorker1.log
+MobileLatamJam/Logs/shadercompiler-AssetImportWorker0.log
