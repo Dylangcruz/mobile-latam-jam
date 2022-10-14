@@ -9,6 +9,8 @@ public class MoveBySwipe : MonoBehaviour
     private Vector2 startTouchPosition; //position to store where we start swipping
     private Vector2 currentPosition; // curent finger position on screen
     private Vector2 endTouchPosition; //where swipe ended
+
+    private Vector3 Character_Position;
     private bool stopTouch = false;
 
      
@@ -38,10 +40,7 @@ public class MoveBySwipe : MonoBehaviour
             currentPosition = Input.GetTouch(0).position;
             Vector2 Distance = currentPosition - startTouchPosition;
 
-            Vector3 Character_Position = Camera.main.ScreenToWorldPoint(Character_Position);
-
-            character_X = transform.position.x;
-            character_Y = transform.position.y;
+            Character_Position = transform.position;
 
     
 
@@ -50,30 +49,37 @@ public class MoveBySwipe : MonoBehaviour
                 if (Distance.x < -swipeRange)
                 {
                     //outputText.text = "Left";
-                    transform.position.x = (character_X- 1);
+                    Character_Position.x = Character_Position.x - 1;
                     stopTouch = true;
                 }
                 
                 else if (Distance.x > swipeRange)
                 {
-                    transform.position.x = (character_X + 1);;
+                    Character_Position.x = Character_Position.x + 1;
                     stopTouch = true;
                 }
                 
                 else if (Distance.y > swipeRange)
                 {
-                    transform.position.y = (character_Y + 1);
+                    Character_Position.y = Character_Position.y + 1;
                     stopTouch = true;
                 }
 
                 else if (Distance.y < swipeRange)
                 {
-                    transform.position.y = (character_Y - 1);
+                    Character_Position.y = Character_Position.y - 1;
                     stopTouch = true;
                 }
 
+                transform.position = Character_Position;
+
             }
         
+        }
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            stopTouch = false;
         }
 
 
