@@ -11,7 +11,7 @@ public class MoveBySwipe : MonoBehaviour
     private Vector2 endTouchPosition; //where swipe ended
 
     private Vector3 Character_Position;
-    private bool stopTouch = false;
+    //private bool stopTouch = false;
 
      
 
@@ -44,43 +44,38 @@ public class MoveBySwipe : MonoBehaviour
 
     
 
-            if(!stopTouch)
+          
+            if (Distance.x < -swipeRange)
             {
-                if (Distance.x < -swipeRange)
-                {
-                    //outputText.text = "Left";
-                    Character_Position.x = Character_Position.x - 1;
-                    stopTouch = true;
-                }
-                
-                else if (Distance.x > swipeRange)
-                {
-                    Character_Position.x = Character_Position.x + 1;
-                    stopTouch = true;
-                }
-                
-                else if (Distance.y > swipeRange)
-                {
-                    Character_Position.y = Character_Position.y + 1;
-                    stopTouch = true;
-                }
-
-                else if (Distance.y < swipeRange)
-                {
-                    Character_Position.y = Character_Position.y - 1;
-                    stopTouch = true;
-                }
-
-                transform.position = Character_Position;
-
+                //outputText.text = "Left";
+                Character_Position.x = Character_Position.x - 1;
+                //stopTouch = true;
             }
+            
+            else if (Distance.x > swipeRange)
+            {
+                Character_Position.x = Character_Position.x + 1;
+                //stopTouch = true;
+            }
+            
+            else if (Distance.y > swipeRange)
+            {
+                Character_Position.y = Character_Position.y + 1;
+                //stopTouch = true;
+            }
+
+            else if (Distance.y < swipeRange)
+            {
+                Character_Position.y = Character_Position.y - 1;
+                //stopTouch = true;
+            }
+
+            transform.position = Character_Position;
+
+            
         
         }
 
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            stopTouch = false;
-        }
 
 
     }
