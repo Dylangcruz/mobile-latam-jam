@@ -22,7 +22,14 @@ public class Conductor : MonoBehaviour
 
     //an AudioSource attached to this GameObject that will play the music.
     private AudioSource musicSource;
+
+
+    //The offset to the first beat of the song in seconds
+    public float firstBeatOffset;
+
+
     // Start is called before the first frame update
+
 
     void Start()
     {
@@ -43,7 +50,7 @@ public class Conductor : MonoBehaviour
     void Update()
     {
         //determine how many seconds since the song started
-        songPosition = (float)(AudioSettings.dspTime - dspSongTime);
+        songPosition = (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset);
 
         //determine how many beats since the song started
         songPositionInBeats = songPosition / secPerBeat;
