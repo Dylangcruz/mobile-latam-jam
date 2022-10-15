@@ -28,11 +28,20 @@ public class Conductor : MonoBehaviour
     public float firstBeatOffset;
 
 
+    //to let player swipe on certain frames
+    public bool canSwipe;
+
+    public float bufferTimeInBeats;
     // Start is called before the first frame update
 
 
     void Start()
     {
+        canSwipe = false;
+
+        bufferTimeInBeats = .35f;
+
+
         //Load the AudioSource attached to the Conductor GameObject
         musicSource = GetComponent<AudioSource>();
 
@@ -54,5 +63,15 @@ public class Conductor : MonoBehaviour
 
         //determine how many beats since the song started
         songPositionInBeats = songPosition / secPerBeat;
+        //Debug.Log("position in beats:" +songPositionInBeats);
+
+        if (Mathf.Abs(songPositionInBeats- Mathf.Floor(songPositionInBeats)) <= bufferTimeInBeats || Mathf.Abs(songPositionInBeats - Mathf.Ceil(songPositionInBeats)) <= bufferTimeInBeats)
+            {
+            canSwipe = true;
+            }
+        else
+        {
+            canSwipe = false;
+        }
     }
 }
