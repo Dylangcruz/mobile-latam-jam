@@ -364,7 +364,7 @@ PrefabInstance:
     - target: {fileID: 5782570216766390460, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: fbb8b2d018259b64686b0d39e3898a0a, type: 3}
+      objectReference: {fileID: 8300000, guid: c0b32c18ca0bbb0488557580d4cf8c3e, type: 3}
     - target: {fileID: 6435499578498162747, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: m_Name
       value: Conductor
