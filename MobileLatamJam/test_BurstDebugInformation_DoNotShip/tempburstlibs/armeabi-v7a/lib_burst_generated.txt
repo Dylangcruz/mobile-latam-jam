@@ -140,6 +140,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Telemetry.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.VisualScripting.State.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
+--root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\AstarPathfindingProject.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.Internal.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.2D.Animation.Runtime.dll
@@ -166,7 +167,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.InternalAPIEngineBridge.001.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Configuration.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Subsystem.Registration.dll
---root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\AstarPathfindingProject.dll
 --assembly-folder=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
