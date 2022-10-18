@@ -15,9 +15,12 @@ public class SwipeMove : MonoBehaviour
 	private Vector3 Character_Position;
 	private bool stopTouch = false;
 
-	[SerializeField] GameObject ConductorObject;
-	public Conductor conductorinstance;
+	public Rigidbody2D rb;
+
+	private GameObject ConductorObject;
+	private Conductor conductorinstance;
 	
+	public LayerMask whatStopsMovement;
 
 	private void Start()
     {
@@ -29,7 +32,7 @@ public class SwipeMove : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		Character_Position = transform.position;
 
 		foreach (Touch touch in Input.touches)
 		{
@@ -114,28 +117,40 @@ public class SwipeMove : MonoBehaviour
 	void OnSwipeUp()
 	{
 		//Do something when swiped up
-		Character_Position.y = Character_Position.y + 1;
-		transform.position = Character_Position;
+		if(!Physics2D.OverlapCircle( Character_Position + Vector3.up,.2f, whatStopsMovement))
+			{
+			Character_Position += Vector3.up;
+			transform.position = Character_Position;
+			}
 	}
 
 	void OnSwipeDown()
 	{
 		//Do something when swiped down
-		Character_Position.y = Character_Position.y - 1;
-		transform.position = Character_Position;
+		if (!Physics2D.OverlapCircle(Character_Position + Vector3.down, .2f, whatStopsMovement))
+		{
+			Character_Position += Vector3.down;
+			transform.position = Character_Position;
+		}
 	}
 
 	void OnSwipeLeft()
 	{
 		//Do something when swiped left
-		Character_Position.x = Character_Position.x - 1;
-		transform.position = Character_Position;
+		if (!Physics2D.OverlapCircle(Character_Position + Vector3.left, .2f, whatStopsMovement))
+		{
+			Character_Position += Vector3.left;
+			transform.position = Character_Position;
+		}
 	}
 
 	void OnSwipeRight()
 	{
 		//Do something when swiped right
-		Character_Position.x = Character_Position.x + 1;
-		transform.position = Character_Position;
+		if (!Physics2D.OverlapCircle(Character_Position + Vector3.right, .2f, whatStopsMovement))
+		{
+			Character_Position += Vector3.right;
+			transform.position = Character_Position;
+		}
 	}
 }
