@@ -2129,9 +2129,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889075597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb07b395f3b4bc14196ef711ffa46e54, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f4ebdcb5aa86e54896af8c673433e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1769278142}
+  speed: 200
+  nextWaipointDistance: 3
 --- !u!58 &1889075599
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2184,7 +2187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889075597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 6.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: 6.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2244,13 +2247,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5782570216766390460, guid: ac094a3414561674892ba299b8675c27, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782570216766390460, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: m_Volume
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5782570216766390460, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: fbb8b2d018259b64686b0d39e3898a0a, type: 3}
+      objectReference: {fileID: 8300000, guid: c0b32c18ca0bbb0488557580d4cf8c3e, type: 3}
     - target: {fileID: 6435499578498162747, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: m_Name
       value: Conductor
