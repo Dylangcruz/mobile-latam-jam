@@ -201,3 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectSwipeAfterRelease: 0
   SWIPE_THRESHOLD: 20
+  rb: {fileID: 0}
+  whatStopsMovement:
+    serializedVersion: 2
+    m_Bits: 0
