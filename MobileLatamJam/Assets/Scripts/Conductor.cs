@@ -15,7 +15,7 @@ public class Conductor : MonoBehaviour
     private float songPosition;
 
     //Current song position, in beats
-    private float songPositionInBeats;
+    public int songPositionInBeats;
 
     //How many seconds have passed since the song started
     private float dspSongTime;
@@ -28,18 +28,17 @@ public class Conductor : MonoBehaviour
     public float firstBeatOffset;
 
 
-    //to let player swipe on certain frames
-    public bool canSwipe;
+    //to let other code know when the beat happens
+    public bool onBeat;
+    public bool preciseBeat;
 
-    public float bufferTimeInBeats;
+    public float bufferTimeInBeats = .49999f;
     // Start is called before the first frame update
 
 
     void Start()
     {
-        canSwipe = false;
-
-        bufferTimeInBeats = .35f;
+        onBeat = false;
 
 
         //Load the AudioSource attached to the Conductor GameObject
@@ -62,16 +61,17 @@ public class Conductor : MonoBehaviour
         songPosition = (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset);
 
         //determine how many beats since the song started
-        songPositionInBeats = songPosition / secPerBeat;
-        //Debug.Log("position in beats:" +songPositionInBeats);
-
-        if (Mathf.Abs(songPositionInBeats- Mathf.Floor(songPositionInBeats)) <= bufferTimeInBeats || Mathf.Abs(songPositionInBeats - Mathf.Ceil(songPositionInBeats)) <= bufferTimeInBeats)
-            {
-            canSwipe = true;
-            }
-        else
+        songPositionInBeats =  (int)Mathf.Floor(songPosition / secPerBeat);
+        if (songPosition >0 && songPosition<10 )
         {
-            canSwipe = false;
+            Debug.Log("seconds away from beat" + SecondsAwayFromBeat());
         }
+
+    }
+
+    public float SecondsAwayFromBeat()
+    {
+        float timeOffBeat = Mathf.Abs((songPositionInBeats * secPerBeat) - songPosition); 
+        return timeOffBeat;
     }
 }

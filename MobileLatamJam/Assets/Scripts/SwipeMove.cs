@@ -15,11 +15,14 @@ public class SwipeMove : MonoBehaviour
 	private Vector3 Character_Position;
 	private bool stopTouch = false;
 
-	public Rigidbody2D rb;
+	public Rigidbody2D rb;	
 
 	private GameObject ConductorObject;
 	private Conductor conductorinstance;
 	
+
+	public float swipeBuffer;
+	private bool hasMovedThisBeat=false;
 	public LayerMask whatStopsMovement;
 
 	private void Start()
@@ -36,35 +39,34 @@ public class SwipeMove : MonoBehaviour
 
 		foreach (Touch touch in Input.touches)
 		{
-
-				if (touch.phase == TouchPhase.Began)
-				{
-					fingerUpPos = touch.position;
-					fingerDownPos = touch.position;
-				}
-
-				//Detects Swipe while finger is still moving on screen
-				//if (touch.phase == TouchPhase.Moved)
-				//{
-				//	if (!detectSwipeAfterRelease)
-				//	{
-				//		fingerDownPos = touch.position;
-				//		DetectSwipe();
-				//	}
-				//}
-
-				//Detects swipe after finger is released from screen
-				if (touch.phase == TouchPhase.Ended)
-				{
-					fingerDownPos = touch.position;
-					if (conductorinstance.canSwipe)
-					{
-						DetectSwipe();
-					}
-				}
-
 			
+			if (touch.phase == TouchPhase.Began )
+			{
+				fingerUpPos = touch.position;
+				fingerDownPos = touch.position;
+			}
+			
+			//Detects Swipe while finger is still moving on screen
+			// if (touch.phase == TouchPhase.Moved)
+			// {
+			// 	if (!detectSwipeAfterRelease)
+			// 	{
+			// 		fingerDownPos = touch.position;
+			// 		DetectSwipe();
+			// 	}
+			// }
+
+			//Detects swipe after finger is released from screen
+			if (touch.phase == TouchPhase.Ended)
+			{
+				if (conductorinstance.SecondsAwayFromBeat() < 0.3f)
+				{	
+				fingerDownPos = touch.position;
+				DetectSwipe();
+				}
+			}
 		}
+			
 	}
 
 	void DetectSwipe()
