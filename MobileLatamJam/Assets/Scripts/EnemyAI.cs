@@ -8,11 +8,13 @@ public class EnemyAI : MonoBehaviour
 
     public Transform target;
 
-    public float speed = 200f;
+    public int counter = 0; 
     public float nextWaipointDistance = 3f;
 
     private GameObject ConductorObject;
 	private Conductor conductorinstance;
+
+    private int currentBeat=-1;
 
     Path path;
     int currentWaypoint = 0;
@@ -65,20 +67,27 @@ public class EnemyAI : MonoBehaviour
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = (path.vectorPath[currentWaypoint]-transform.position).normalized;
+       counter = path.vectorPath.Count;
        
-       if (conductorinstance.canSwipe)
-        { if (moved == false)
-            {
-                transform.position = path.vectorPath[1] + Vector3.back;
-                moved = true;
-            }else//
-            {
-                return;
-            }
-        }else
+        if (conductorinstance.songPositionInBeats != currentBeat)
         {
-            moved = false;
+            currentBeat = conductorinstance.songPositionInBeats;
+
+            transform.position = path.vectorPath[1] + Vector3.back;
+
         }
+    //    if (conductorinstance.onBeat)
+    //     { if (moved == false)
+    //         {
+    //             transform.position = path.vectorPath[1] + Vector3.back;
+    //             moved = true;
+    //         }else//
+    //         {
+    //             return;
+    //         }
+    //     }else
+    //     {
+    //         moved = false;
+    //     }
     }
 }
