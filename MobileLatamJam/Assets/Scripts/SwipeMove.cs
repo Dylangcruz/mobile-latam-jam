@@ -24,6 +24,7 @@ public class SwipeMove : MonoBehaviour
 	public float swipeBuffer;
 	private bool hasMovedThisBeat=false;
 	public LayerMask whatStopsMovement;
+	public LayerMask enemies;
 
 	private void Start()
     {
@@ -119,40 +120,67 @@ public class SwipeMove : MonoBehaviour
 	void OnSwipeUp()
 	{
 		//Do something when swiped up
-		if(!Physics2D.OverlapCircle( Character_Position + Vector3.up,.2f, whatStopsMovement))
+
+		if (!Attack(Vector3.down))
+		{
+			if(!Physics2D.OverlapCircle( Character_Position + Vector3.up,.2f, whatStopsMovement))
 			{
-			Character_Position += Vector3.up;
-			transform.position = Character_Position;
+				Character_Position += Vector3.up;
+				transform.position = Character_Position;
 			}
+		}
 	}
 
 	void OnSwipeDown()
 	{
 		//Do something when swiped down
-		if (!Physics2D.OverlapCircle(Character_Position + Vector3.down, .2f, whatStopsMovement))
+		if (!Attack(Vector3.down))
 		{
-			Character_Position += Vector3.down;
-			transform.position = Character_Position;
+			if(!Physics2D.OverlapCircle(Character_Position + Vector3.down, .2f, whatStopsMovement))
+			{
+				Character_Position += Vector3.down;
+				transform.position = Character_Position;
+			}
 		}
 	}
 
 	void OnSwipeLeft()
 	{
 		//Do something when swiped left
-		if (!Physics2D.OverlapCircle(Character_Position + Vector3.left, .2f, whatStopsMovement))
+		if (!Attack(Vector3.left))
 		{
-			Character_Position += Vector3.left;
-			transform.position = Character_Position;
+			if (!Physics2D.OverlapCircle(Character_Position + Vector3.left, .2f, whatStopsMovement))
+			{
+				Character_Position += Vector3.left;
+				transform.position = Character_Position;
+			}
 		}
 	}
 
 	void OnSwipeRight()
 	{
 		//Do something when swiped right
-		if (!Physics2D.OverlapCircle(Character_Position + Vector3.right, .2f, whatStopsMovement))
+		if (!Attack(Vector3.right))
 		{
-			Character_Position += Vector3.right;
-			transform.position = Character_Position;
+			if (!Physics2D.OverlapCircle(Character_Position + Vector3.right, .2f, whatStopsMovement))
+			{
+				Character_Position += Vector3.right;
+				transform.position = Character_Position;
+			}
+		}
+	}
+
+	bool Attack(Vector3 direction)//this should later change to take into consideration weapons, range and damage
+	{	Collider2D target = Physics2D.OverlapCircle(Character_Position + direction, .2f, enemies);
+		float damage = 1f; //this is a dummy damage value
+		if(!target)//if no enemy
+		{
+			return false;//dont attack 
+		}else
+		{
+			Debug.Log("target: " + target);
+			target.SendMessage("OnHit",damage);
+			return true;
 		}
 	}
 }

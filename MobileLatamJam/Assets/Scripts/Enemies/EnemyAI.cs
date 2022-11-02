@@ -34,6 +34,7 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("UpdatePath",0f,.5f);
     }
 
+
     void UpdatePath()
     {
         if(seeker.IsDone())
@@ -42,6 +43,8 @@ public class EnemyAI : MonoBehaviour
     
         }
     }
+
+
     void OnPathComplete(Path p)
     {
         if(!p.error)
@@ -50,10 +53,26 @@ public class EnemyAI : MonoBehaviour
             currentWaypoint = 0;
         }
     }
+
+    void Move()
+    {
+        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
+
+        if(target.position != nextPosition)//if the target is not in the next spot
+        {
+        transform.position = nextPosition;
+        }else // osea, target is here
+        {
+          //ATTACK ANIMATION
+          //DEPLETE HEALTH  
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if (path ==null)
+        if (path == null)
         {
             return;
         }
@@ -73,21 +92,8 @@ public class EnemyAI : MonoBehaviour
         {
             currentBeat = conductorinstance.songPositionInBeats;
 
-            transform.position = path.vectorPath[1] + Vector3.back;
+            Move();
 
         }
-    //    if (conductorinstance.onBeat)
-    //     { if (moved == false)
-    //         {
-    //             transform.position = path.vectorPath[1] + Vector3.back;
-    //             moved = true;
-    //         }else//
-    //         {
-    //             return;
-    //         }
-    //     }else
-    //     {
-    //         moved = false;
-    //     }
     }
 }
