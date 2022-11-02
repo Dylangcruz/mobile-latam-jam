@@ -27,7 +27,7 @@ public class BeatCollapse : MonoBehaviour
         //set to initial position
         transform.position = new Vector2(startX, posY);
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GameObject.Find("Test").GetComponent<SpriteRenderer>();
 
     }
 
