@@ -9,13 +9,15 @@ public class Conductor : MonoBehaviour
     public float songBpm;
 
     //The number of seconds for each song beat
-    private float secPerBeat;
+    public float secPerBeat;
 
     //Current song position, in seconds
-    private float songPosition;
+    public float songPosition;
 
     //Current song position, in beats
     public int songPositionInBeats;
+    public float songPositionInBeatsUnfloored;
+    public int lastBeat; //so i can tell when the beat changes
 
     //How many seconds have passed since the song started
     private float dspSongTime;
@@ -27,20 +29,16 @@ public class Conductor : MonoBehaviour
     //The offset to the first beat of the song in seconds
     public float firstBeatOffset;
 
-
-    //to let other code know when the beat happens
-    public bool onBeat;
-    public bool preciseBeat;
-
     public float bufferTimeInBeats = .49999f;
+
+
+    public GameObject beatIndicatorPrefab;
+
+
+
     // Start is called before the first frame update
-
-
     void Start()
     {
-        onBeat = false;
-
-
         //Load the AudioSource attached to the Conductor GameObject
         musicSource = GetComponent<AudioSource>();
 
@@ -61,12 +59,23 @@ public class Conductor : MonoBehaviour
         songPosition = (float)(AudioSettings.dspTime - dspSongTime - firstBeatOffset);
 
         //determine how many beats since the song started
-        songPositionInBeats =  (int)Mathf.Floor(songPosition / secPerBeat);
-        if (songPosition >0 && songPosition<10 )
+        songPositionInBeatsUnfloored = songPosition / secPerBeat;
+        songPositionInBeats =  (int)Mathf.Floor(songPositionInBeatsUnfloored);
+        if(songPositionInBeats != lastBeat)
         {
-            Debug.Log("seconds away from beat" + SecondsAwayFromBeat());
-        }
+            lastBeat = songPositionInBeats;
+            //instantiate indicators
+            var beatIndicatorRight = Instantiate(beatIndicatorPrefab, new Vector2(250, 420), Quaternion.identity,GameObject.FindGameObjectWithTag("Canvas").transform);
+            var beatIndicatorLeft = Instantiate(beatIndicatorPrefab, new Vector2(-250, 420), Quaternion.Euler(0,180,0),GameObject.FindGameObjectWithTag("Canvas").transform);
 
+            //beatIndicatorRight.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform,false);
+            //beatIndicatorLeft.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform,false);
+
+
+            //initialize their values
+            beatIndicatorRight.GetComponent<Beat_Indicator>().Initialize(this, 250, 30, 420, songPositionInBeats);
+            beatIndicatorLeft.GetComponent<Beat_Indicator>().Initialize(this, -250, -30, 420, songPositionInBeats);
+        }
     }
 
     public float SecondsAwayFromBeat()

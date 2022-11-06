@@ -1,73 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Beat_Indicator : MonoBehaviour
 {
 
     //keep reference of the conductor:
 
-    public Joel_Conductor conductor;
+    public Conductor conductor;
 
     public float startX;
     public float endX;
-    public float removeLineX;
     public float beat;
+    public Vector3 startVector;
+    public Vector3 endVector;
+    private float interpolationRatio;
 
-    private SpriteRenderer spriteRenderer;
-
-    public void Initialize(Joel_Conductor conductor, float startX, float endX, float removeLineX, float posY, float beat)
+    public void Initialize(Conductor conductor, float startX, float endX, float posY, float beat)
     {
         this.conductor = conductor;
         this.startX = startX;
         this.endX = endX;
         this.beat = beat;
-        this.removeLineX = removeLineX;
 
-        //set to initial position
-        transform.position = new Vector2(startX, posY);
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
+        this.startVector= new Vector2(startX, posY);
+        this.endVector= new Vector2(endX, posY);
     }
 
     void Update()
     {
+        interpolationRatio = (conductor.songPositionInBeatsUnfloored-beat)/3; // (current beat position - beat it was spawned)/how many notes i want on screen    
 
         //Update position of the note according to the position of the song
-
-        transform.position = new Vector2(startX + (endX -startX) * (1f - (beat - conductor.songposition/conductor.secondsPerBeat) / 4f ), transform.position.y);
+        transform.localPosition = Vector3.Lerp(startVector, endVector,interpolationRatio);
 
         //Remove itself when out of the screen
 
-        if(transform.position.x > removeLineX)
+        if(interpolationRatio>1)
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
-
-    /*
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        secPerBeat = 60f / bpm;
-
-        dpsTimeSong = (float) AudioSettings.dpsTime;
-
-        GetComponent<AudioSource>().Play();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        songPosition = (float)(AudioSettings.dspTime - dpsTimeSong )
-
-        songPosInBeats = songPosition / secPerBeat;
-        
-    }
-
-    */
 }
