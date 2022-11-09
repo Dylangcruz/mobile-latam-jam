@@ -6,8 +6,9 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 
-    public Transform target;
-
+    public GameObject targetObject;
+    private Transform target;
+    private  PlayerHealth targetHealth;
     public int counter = 0; 
     public float nextWaipointDistance = 3f;
 
@@ -27,6 +28,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
+        target = targetObject.transform;
+        targetHealth = targetObject.GetComponent<PlayerHealth>();
+
         conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
         
         seeker = GetComponent<Seeker>();
@@ -34,14 +38,16 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("UpdatePath",0f,.5f);
     }
 
+
     void UpdatePath()
     {
         if(seeker.IsDone())
         {
             seeker.StartPath(transform.position,target.position, OnPathComplete);
-    
         }
     }
+
+
     void OnPathComplete(Path p)
     {
         if(!p.error)
@@ -50,10 +56,27 @@ public class EnemyAI : MonoBehaviour
             currentWaypoint = 0;
         }
     }
+
+    void Move()
+    {
+        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
+
+        if(target.position != nextPosition)//if the target is not in the next spot
+        {
+        transform.position = nextPosition;
+        }else // osea, target is here
+        {
+          //ATTACK ANIMATION
+          //DEPLETE HEALTH 
+          targetHealth.Damage(1);
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if (path ==null)
+        if (path == null)
         {
             return;
         }
@@ -71,23 +94,10 @@ public class EnemyAI : MonoBehaviour
        
         if (conductorinstance.songPositionInBeats != currentBeat)
         {
-            currentBeat = conductorinstance.songPositionInBeats;
+            currentBeat = conductorinstance.songPositionInBeats;//update which beat we're on
+            UpdatePath();//update the path enemy is taking
 
-            transform.position = path.vectorPath[1] + Vector3.back;
-
+            Move();//this also attacks
         }
-    //    if (conductorinstance.onBeat)
-    //     { if (moved == false)
-    //         {
-    //             transform.position = path.vectorPath[1] + Vector3.back;
-    //             moved = true;
-    //         }else//
-    //         {
-    //             return;
-    //         }
-    //     }else
-    //     {
-    //         moved = false;
-    //     }
     }
 }

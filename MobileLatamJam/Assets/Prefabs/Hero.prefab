@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1523484558271749082}
   - component: {fileID: 1523484558271749077}
+  - component: {fileID: 3372905124036324581}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -202,6 +203,29 @@ MonoBehaviour:
   detectSwipeAfterRelease: 0
   SWIPE_THRESHOLD: 20
   rb: {fileID: 0}
+  swipeBuffer: 0
   whatStopsMovement:
     serializedVersion: 2
     m_Bits: 0
+  enemies:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &3372905124036324581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523484558271749083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270475e6f6e2228408d72e26316b5eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthGFX: {fileID: 0}
+  fullHealthGFX: {fileID: 0}
+  damagedHealthGFX: {fileID: 0}
+  criticalHealthGFX: {fileID: 0}
+  noHealthGFX: {fileID: 0}
+  MaxHealth: 3
+  currentHealth: 3
