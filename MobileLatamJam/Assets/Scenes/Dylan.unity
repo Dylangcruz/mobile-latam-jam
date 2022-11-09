@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 12093296}
   - component: {fileID: 12093295}
   - component: {fileID: 12093294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Roaming Melee Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fb90d98a694a942a7b32e23ecf74d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1769278142}
+  targetObject: {fileID: 1769278139}
   endpoint: {x: 0, y: 0, z: 0}
   counter: 0
   nextWaipointDistance: 3
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d9ce913770cb2134d9b09a88d0483064, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f76866daf686c1047841cdc5de3ca202, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACYn+ul8Q4EWwIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HEDIuvbUOkB6SMKGZXHyRpTXWIEsefQRIhv/elWxjl05PLG/f7r79kD+JULYB5rRZG8EfNQfyfUKCTb5MBucDHOlOq634gJ7zJrirAolGzgt1QiM+DWFW1+CMYD/UTgZygqBXotSmXvIdZNo6i3BJpQV0Ge1CtELoc0KO+HOzCCEntGZpsD7QWiSTM5oMlAMzUHtiT2tZXjFJ6wZ4kDyQby9pW5rCZjpGEM60lMJ2Sog7NbHTjDbWYx9I4IJiZ7F88jW9Q6QCsatcyDiOfy5LC65TZejpXhicUZuY/NTt4Gpq9620dyp9KPUtimpTPv7jvZlGd2l0/dBXnSahgqsE27/QE6PWjeY6hu8H5dM4nwOVe1pIeKtAPem10V5xdDrjQ6i3MLsf/l4ayypg+wFvpV6Bvvn/dkIP59j7MZOiLuIg5y2wlToOPO4eDK7mFwqOl2G7FIgGFa8WftPd+IQ6x0oY69DVdamCvEJ7E6hkhUaYO/Mu00ZBRDvNDSgq3WmDWdz1/q58o6pXnhUNb6Wr3fn6J3AVEuGBnyRXro0+XHZlK314BFs9eyeFgkF0cDzhmDKtVHte45H0YVtvSspGYTsv+N+XRWha8BkU07RczJK7lN3Mb4tFCvOUFbN0XpSUxNMTCvukctMK7caDS1NDcoVn1n9CJmtDm3jq3NDDWnzUejRyoUq9ZQZAPbcZLsLBYBF8lXzJBQ5oC84JFddNPnMiNdsDzy+J8tjp8ugMzYcsOWnEu3YByUkWvxk5CfDllDcG3gUcQvE+2Zmc/wBQSwMEFAAACAgAAJif6w3NJyxtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKieVKKUWqSoXmapZGBqXmyrolxkqV5qol5cpKRuUlSWqJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAJif66XxDgRbAgAAEgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAJif6w3NJyxtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABgAwAAAAA=
+    dataString: UEsDBBQAAAgIAACgn+ul8Q4EWwIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HEDIuvbUOkB6SMKGZXHyRpTXWIEsefQRIhv/elWxjl05PLG/f7r79kD+JULYB5rRZG8EfNQfyfUKCTb5MBucDHOlOq634gJ7zJrirAolGzgt1QiM+DWFW1+CMYD/UTgZygqBXotSmXvIdZNo6i3BJpQV0Ge1CtELoc0KO+HOzCCEntGZpsD7QWiSTM5oMlAMzUHtiT2tZXjFJ6wZ4kDyQby9pW5rCZjpGEM60lMJ2Sog7NbHTjDbWYx9I4IJiZ7F88jW9Q6QCsatcyDiOfy5LC65TZejpXhicUZuY/NTt4Gpq9620dyp9KPUtimpTPv7jvZlGd2l0/dBXnSahgqsE27/QE6PWjeY6hu8H5dM4nwOVe1pIeKtAPem10V5xdDrjQ6i3MLsf/l4ayypg+wFvpV6Bvvn/dkIP59j7MZOiLuIg5y2wlToOPO4eDK7mFwqOl2G7FIgGFa8WftPd+IQ6x0oY69DVdamCvEJ7E6hkhUaYO/Mu00ZBRDvNDSgq3WmDWdz1/q58o6pXnhUNb6Wr3fn6J3AVEuGBnyRXro0+XHZlK314BFs9eyeFgkF0cDzhmDKtVHte45H0YVtvSspGYTsv+N+XRWha8BkU07RczJK7lN3Mb4tFCvOUFbN0XpSUxNMTCvukctMK7caDS1NDcoVn1n9CJmtDm3jq3NDDWnzUejRyoUq9ZQZAPbcZLsLBYBF8lXzJBQ5oC84JFddNPnMiNdsDzy+J8tjp8ugMzYcsOWnEu3YByUkWvxk5CfDllDcG3gUcQvE+2Zmc/wBQSwMEFAAACAgAAKCf6w3NJyxtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKieVKKUWqSoXmapZGBqXmyrolxkqV5qol5cpKRuUlSWqJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAKCf66XxDgRbAgAAEgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAKCf6w3NJyxtAAAAeAAAAAkAJAAAAAAAAAAAAAAAqAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABgAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -368,7 +368,39 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
@@ -514,7 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 789222301}
   - component: {fileID: 789222302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4993,6 +5025,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 36c0d3ace57666e4780a1afde08bbf92, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 39a389276a4256c4a9ec31c5ba39550d, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 39
     m_Data: {fileID: -675883473, guid: d93212630f1a98d418af5b1407622808, type: 3}
@@ -5020,6 +5056,10 @@ Tilemap:
     m_Data: {fileID: 739730281, guid: d93212630f1a98d418af5b1407622808, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: -252093804, guid: d93212630f1a98d418af5b1407622808, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 421
     m_Data:
@@ -5046,7 +5086,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -15, y: -11, z: 0}
-  m_Size: {x: 30, y: 20, z: 1}
+  m_Size: {x: 38, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -5220,7 +5260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1654647721}
   - component: {fileID: 1654647722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5318,6 +5358,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1769278141}
     - target: {fileID: 1523484558271749077, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: enemies.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523484558271749077, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
       propertyPath: whatStopsMovement.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -5373,6 +5417,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3372905124036324581, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: healthGFX
+      value: 
+      objectReference: {fileID: 144875402}
+    - target: {fileID: 3372905124036324581, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: noHealthGFX
+      value: 
+      objectReference: {fileID: 21300000, guid: d959346029d6d3947ad591fb4b7c2622, type: 3}
+    - target: {fileID: 3372905124036324581, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: fullHealthGFX
+      value: 
+      objectReference: {fileID: 21300000, guid: f76866daf686c1047841cdc5de3ca202, type: 3}
+    - target: {fileID: 3372905124036324581, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: damagedHealthGFX
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f784d930e49c5a44913c31b97af877f, type: 3}
+    - target: {fileID: 3372905124036324581, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
+      propertyPath: criticalHealthGFX
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f784d930e49c5a44913c31b97af877f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9bb922f204d55040a9cbb855d6f431f, type: 3}
 --- !u!1 &1769278139 stripped
@@ -5609,7 +5673,7 @@ GameObject:
   - component: {fileID: 1889075600}
   - component: {fileID: 1889075599}
   - component: {fileID: 1889075598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Melee Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5628,7 +5692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4ebdcb5aa86e54896af8c673433e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1769278142}
+  targetObject: {fileID: 1769278139}
   counter: 0
   nextWaipointDistance: 3
 --- !u!58 &1889075599
@@ -5760,7 +5824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8839314429616387122, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: songBpm
-      value: 90
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8839314429616387122, guid: ac094a3414561674892ba299b8675c27, type: 3}
       propertyPath: beatIndicatorPrefab
@@ -7337,7 +7401,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -15, y: -11, z: 0}
-  m_Size: {x: 27, y: 21, z: 1}
+  m_Size: {x: 36, y: 21, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

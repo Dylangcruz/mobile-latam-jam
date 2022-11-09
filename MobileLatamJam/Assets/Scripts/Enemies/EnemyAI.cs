@@ -6,8 +6,9 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 
-    public Transform target;
-
+    public GameObject targetObject;
+    private Transform target;
+    private  PlayerHealth targetHealth;
     public int counter = 0; 
     public float nextWaipointDistance = 3f;
 
@@ -27,6 +28,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
+        target = targetObject.transform;
+        targetHealth = targetObject.GetComponent<PlayerHealth>();
+
         conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
         
         seeker = GetComponent<Seeker>();
@@ -40,7 +44,6 @@ public class EnemyAI : MonoBehaviour
         if(seeker.IsDone())
         {
             seeker.StartPath(transform.position,target.position, OnPathComplete);
-    
         }
     }
 
@@ -64,7 +67,8 @@ public class EnemyAI : MonoBehaviour
         }else // osea, target is here
         {
           //ATTACK ANIMATION
-          //DEPLETE HEALTH  
+          //DEPLETE HEALTH 
+          targetHealth.Damage(1);
         }
     }
 
@@ -90,10 +94,10 @@ public class EnemyAI : MonoBehaviour
        
         if (conductorinstance.songPositionInBeats != currentBeat)
         {
-            currentBeat = conductorinstance.songPositionInBeats;
+            currentBeat = conductorinstance.songPositionInBeats;//update which beat we're on
+            UpdatePath();//update the path enemy is taking
 
-            Move();
-
+            Move();//this also attacks
         }
     }
 }

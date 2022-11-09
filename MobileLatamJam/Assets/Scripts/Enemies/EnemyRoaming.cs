@@ -14,7 +14,9 @@ public class EnemyRoaming : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 roamPosition;
     
-    public Transform target;
+    public GameObject targetObject;
+    private Transform target;
+    private  PlayerHealth targetHealth;
     public Vector3 endpoint;
     public int counter = 0; 
     public float nextWaipointDistance = 3f;
@@ -37,6 +39,9 @@ public class EnemyRoaming : MonoBehaviour
     { 
         state = State.Roaming;
 
+        target = targetObject.transform;
+        targetHealth = targetObject.GetComponent<PlayerHealth>();
+
         endpoint = RandomPosition(startPosition);
 
         conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
@@ -49,7 +54,6 @@ public class EnemyRoaming : MonoBehaviour
     {
         var newtarget = new Vector3 ( Mathf.Floor(Random.Range(initialPosition.x -3,initialPosition.x + 3)) + .5f,
                                         Mathf.Floor(Random.Range(initialPosition.y -3,initialPosition.y +3))+ .5f,-1); 
-
         return newtarget;
     }
 
@@ -88,7 +92,7 @@ public class EnemyRoaming : MonoBehaviour
                 }
 
 
-                if(Vector3.Distance(transform.position, target.position) < 5)//if target in range
+                if(Vector3.Distance(transform.position, target.position) < 6)//if target in range
                 {
                     state = State.Chasing;//begin chase
                     endpoint = target.position;
@@ -104,11 +108,13 @@ public class EnemyRoaming : MonoBehaviour
                 }else // o sea, target is in the next spot
                 {
                 //ATTACK ANIMATION
-                //DEPLETE HEALTH  
+                //DEPLETE HEALTH 
+                targetHealth.Damage(1);//deals 1 dmg to player
+
                 }
 
 
-                if(Vector3.Distance(transform.position, target.position) > 7)//if target got away from range
+                if(Vector3.Distance(transform.position, target.position) > 5)//if target got away from range
                 {
                     endpoint = RandomPosition(startPosition);
                     state = State.Roaming; //go back to roaming
@@ -140,8 +146,8 @@ public class EnemyRoaming : MonoBehaviour
        
         if (conductorinstance.songPositionInBeats == currentBeat +2 )
         {
-
             currentBeat = conductorinstance.songPositionInBeats;
+            //UpdatePath();
 
             Move();
 
