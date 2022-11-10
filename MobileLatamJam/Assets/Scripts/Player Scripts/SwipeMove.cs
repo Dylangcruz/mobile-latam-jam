@@ -179,7 +179,8 @@ public class SwipeMove : MonoBehaviour
 		}else
 		{
 			Debug.Log("target: " + target);
-			target.SendMessage("OnHit",damage);
+			target.GetComponent<EnemyHealth>().Damage(1);
+			//target.SendMessage("OnHit",damage);
 			return true;
 		}
 	}
