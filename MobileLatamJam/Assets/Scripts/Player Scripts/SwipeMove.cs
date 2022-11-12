@@ -15,7 +15,7 @@ public class SwipeMove : MonoBehaviour
 	private Vector3 Character_Position;
 	private bool stopTouch = false;
 
-	public Rigidbody2D rb;	
+	public Animator anim;
 
 	private GameObject ConductorObject;
 	private Conductor conductorinstance;
@@ -26,46 +26,64 @@ public class SwipeMove : MonoBehaviour
 	public LayerMask whatStopsMovement;
 	public LayerMask enemies;
 
+
+
 	private void Start()
     {
 
 		Character_Position = transform.position;
 		conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
+
+		anim.speed = conductorinstance.songBpm;
 	}
     
 	// Update is called once per frame
 	void Update()
 	{
-		Character_Position = transform.position;
-
-		foreach (Touch touch in Input.touches)
+		if(transform.position == Character_Position)
 		{
-			
-			if (touch.phase == TouchPhase.Began )
-			{
-				fingerUpPos = touch.position;
-				fingerDownPos = touch.position;
-			}
-			
-			//Detects Swipe while finger is still moving on screen
-			// if (touch.phase == TouchPhase.Moved)
-			// {
-			// 	if (!detectSwipeAfterRelease)
-			// 	{
-			// 		fingerDownPos = touch.position;
-			// 		DetectSwipe();
-			// 	}
-			// }
+			anim.SetBool("isMoving", false);
 
-			//Detects swipe after finger is released from screen
-			if (touch.phase == TouchPhase.Ended)
+			
+			foreach (Touch touch in Input.touches)
 			{
-				if (conductorinstance.SecondsAwayFromBeat() < 0.3f)
-				{	
-				fingerDownPos = touch.position;
-				DetectSwipe();
+				
+				if (touch.phase == TouchPhase.Began )
+				{
+					fingerUpPos = touch.position;
+					fingerDownPos = touch.position;
+				}
+				
+				//Detects Swipe while finger is still moving on screen
+				// if (touch.phase == TouchPhase.Moved)
+				// {
+				// 	if (!detectSwipeAfterRelease)
+				// 	{
+				// 		fingerDownPos = touch.position;
+				// 		DetectSwipe();
+				// 	}
+				// }
+
+				//Detects swipe after finger is released from screen
+				if (touch.phase == TouchPhase.Ended)
+				{
+					if (conductorinstance.SecondsAwayFromBeat() < 0.3f)
+					{	
+					fingerDownPos = touch.position;
+					DetectSwipe();
+					}
 				}
 			}
+		}else
+		{
+
+			transform.position = Vector3.MoveTowards(transform.position, 
+													Character_Position, 
+													3/(conductorinstance.secPerBeat * 60)); // its *3 cause i want to move in a 3rd of a beat
+													//(from, to , how much to move per frame)
+
+			//Character_Position = transform.position;
+			
 		}
 			
 	}
@@ -121,12 +139,14 @@ public class SwipeMove : MonoBehaviour
 	{
 		//Do something when swiped up
 
-		if (!Attack(Vector3.down))
+		if (!Attack(Vector3.up))
 		{
 			if(!Physics2D.OverlapCircle( Character_Position + Vector3.up,.2f, whatStopsMovement))
 			{
+				anim.SetBool("isMoving", true);
+				anim.Play("Player_Move_Up");
 				Character_Position += Vector3.up;
-				transform.position = Character_Position;
+				//transform.position = Character_Position;
 			}
 		}
 	}
@@ -138,8 +158,10 @@ public class SwipeMove : MonoBehaviour
 		{
 			if(!Physics2D.OverlapCircle(Character_Position + Vector3.down, .2f, whatStopsMovement))
 			{
+				anim.SetBool("isMoving", true);
+				anim.Play("Player_Move_Down");
 				Character_Position += Vector3.down;
-				transform.position = Character_Position;
+				//transform.position = Character_Position;
 			}
 		}
 	}
@@ -150,9 +172,11 @@ public class SwipeMove : MonoBehaviour
 		if (!Attack(Vector3.left))
 		{
 			if (!Physics2D.OverlapCircle(Character_Position + Vector3.left, .2f, whatStopsMovement))
-			{
+			{	
+				anim.SetBool("isMoving", true);
+				anim.Play("Player_Move_Left");
 				Character_Position += Vector3.left;
-				transform.position = Character_Position;
+				//transform.position = Character_Position;
 			}
 		}
 	}
@@ -164,8 +188,12 @@ public class SwipeMove : MonoBehaviour
 		{
 			if (!Physics2D.OverlapCircle(Character_Position + Vector3.right, .2f, whatStopsMovement))
 			{
+				anim.SetBool("isMoving", true);
+				anim.Play("Player_Move_Right");
+				//anim.PlayQueued("Player_Idle_Right");
 				Character_Position += Vector3.right;
-				transform.position = Character_Position;
+				//transform.position = Character_Position;	
+					
 			}
 		}
 	}
