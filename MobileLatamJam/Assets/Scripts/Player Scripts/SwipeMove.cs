@@ -13,21 +13,27 @@ public class SwipeMove : MonoBehaviour
 	public float SWIPE_THRESHOLD = 20f;
 
 	private Vector3 Character_Position;
-	private bool stopTouch = false;
-
+	
+	
+	//Animator and Animation States
 	public Animator anim;
+	private string aniDirection = "Down" 
+	const string PLAYER_IDLE = "Player_Idle_"
+	const string PLAYER_MOVE = "Player_Move_"
+	const string PLAYER_Attack = "Player_Attack_"
 
+	//reference to conductor
 	private GameObject ConductorObject;
 	private Conductor conductorinstance;
-	
 
-	public float swipeBuffer;
-	private bool hasMovedThisBeat=false;
+	//layers to check if theres enemies or walls
 	public LayerMask whatStopsMovement;
 	public LayerMask enemies;
 
 
-
+	//=====================================================
+	// Start is called before the first frame update
+    //=====================================================
 	private void Start()
     {
 
@@ -36,8 +42,11 @@ public class SwipeMove : MonoBehaviour
 
 		anim.speed = conductorinstance.songBpm;
 	}
-    
-	// Update is called once per frame
+
+
+	//=====================================================
+    // Update is called once per frame
+    //=====================================================
 	void Update()
 	{
 		if(transform.position == Character_Position)
@@ -88,6 +97,10 @@ public class SwipeMove : MonoBehaviour
 			
 	}
 
+	//=====================================================
+	// DetectSwipe recognizes the direction of the swipe
+	//			   and runs the proper code for it. 
+    //=====================================================
 	void DetectSwipe()
 	{
 
@@ -134,9 +147,15 @@ public class SwipeMove : MonoBehaviour
 	{
 		return Mathf.Abs(fingerDownPos.x - fingerUpPos.x);
 	}
-
+	
+	//=====================================================
+	// OnSwipe___ changes the direction of the animation,
+	//		 checks if theres an enemy to attack there 
+	//		 then if there isn't it tries to move there.
+    //=====================================================
 	void OnSwipeUp()
 	{
+		aniDirection = "Up"
 		//Do something when swiped up
 
 		if (!Attack(Vector3.up))
@@ -153,6 +172,7 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeDown()
 	{
+		aniDirection = "Down"
 		//Do something when swiped down
 		if (!Attack(Vector3.down))
 		{
@@ -168,6 +188,8 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeLeft()
 	{
+		aniDirection = "Left"
+
 		//Do something when swiped left
 		if (!Attack(Vector3.left))
 		{
@@ -183,6 +205,7 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeRight()
 	{
+		aniDirection = "Right"
 		//Do something when swiped right
 		if (!Attack(Vector3.right))
 		{
@@ -190,14 +213,17 @@ public class SwipeMove : MonoBehaviour
 			{
 				anim.SetBool("isMoving", true);
 				anim.Play("Player_Move_Right");
-				//anim.PlayQueued("Player_Idle_Right");
 				Character_Position += Vector3.right;
 				//transform.position = Character_Position;	
 					
 			}
 		}
 	}
-
+	
+	//=====================================================
+	// Attack tries to attack a position
+	//			returns false if nothing there
+    //=====================================================
 	bool Attack(Vector3 direction)//this should later change to take into consideration weapons, range and damage
 	{	Collider2D target = Physics2D.OverlapCircle(Character_Position + direction, .2f, enemies);
 		float damage = 1f; //this is a dummy damage value
