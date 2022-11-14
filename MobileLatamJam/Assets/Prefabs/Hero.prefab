@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1523484557951315298}
   - component: {fileID: 256627234}
   - component: {fileID: 256627235}
+  - component: {fileID: 256627237}
   m_Layer: 0
   m_Name: PlayerGFX
   m_TagString: Untagged
@@ -105,6 +106,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &256627237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523484557951315299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9463b982ce08c04438e9e2f24426433c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 256627235}
 --- !u!1 &1523484558271749083
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +170,6 @@ MonoBehaviour:
   detectSwipeAfterRelease: 0
   SWIPE_THRESHOLD: 20
   anim: {fileID: 256627235}
-  swipeBuffer: 0
   whatStopsMovement:
     serializedVersion: 2
     m_Bits: 8

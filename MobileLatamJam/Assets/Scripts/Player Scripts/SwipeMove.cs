@@ -17,10 +17,11 @@ public class SwipeMove : MonoBehaviour
 	
 	//Animator and Animation States
 	public Animator anim;
-	private string aniDirection = "Down" 
-	const string PLAYER_IDLE = "Player_Idle_"
-	const string PLAYER_MOVE = "Player_Move_"
-	const string PLAYER_Attack = "Player_Attack_"
+	private string currentAnimaton; //this should be a State + aniDirection
+	private string aniDirection = "Down" ;
+	const string PLAYER_IDLE = "Player_Idle_";
+	const string PLAYER_MOVE = "Player_Move_";
+	const string PLAYER_ATTACK = "Player_Attack_";
 
 	//reference to conductor
 	private GameObject ConductorObject;
@@ -36,24 +37,20 @@ public class SwipeMove : MonoBehaviour
     //=====================================================
 	private void Start()
     {
-
 		Character_Position = transform.position;
 		conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
 
 		anim.speed = conductorinstance.songBpm;
 	}
 
-
 	//=====================================================
     // Update is called once per frame
     //=====================================================
 	void Update()
-	{
+	{///
 		if(transform.position == Character_Position)
 		{
 			anim.SetBool("isMoving", false);
-
-			
 			foreach (Touch touch in Input.touches)
 			{
 				
@@ -88,7 +85,7 @@ public class SwipeMove : MonoBehaviour
 
 			transform.position = Vector3.MoveTowards(transform.position, 
 													Character_Position, 
-													3/(conductorinstance.secPerBeat * 60)); // its *3 cause i want to move in a 3rd of a beat
+													3/(conductorinstance.secPerBeat * 60)); // its 3// cause i want to move in a 3rd of a beat
 													//(from, to , how much to move per frame)
 
 			//Character_Position = transform.position;
@@ -134,7 +131,7 @@ public class SwipeMove : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("No Swipe Detected!");
+			Debug.Log("No Swipe Detected");
 		}
 	}
 
@@ -155,7 +152,7 @@ public class SwipeMove : MonoBehaviour
     //=====================================================
 	void OnSwipeUp()
 	{
-		aniDirection = "Up"
+		aniDirection = "Up";
 		//Do something when swiped up
 
 		if (!Attack(Vector3.up))
@@ -163,7 +160,8 @@ public class SwipeMove : MonoBehaviour
 			if(!Physics2D.OverlapCircle( Character_Position + Vector3.up,.2f, whatStopsMovement))
 			{
 				anim.SetBool("isMoving", true);
-				anim.Play("Player_Move_Up");
+				ChangeAnimationState(PLAYER_MOVE);
+
 				Character_Position += Vector3.up;
 				//transform.position = Character_Position;
 			}
@@ -172,14 +170,14 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeDown()
 	{
-		aniDirection = "Down"
+		aniDirection = "Down";
 		//Do something when swiped down
 		if (!Attack(Vector3.down))
 		{
 			if(!Physics2D.OverlapCircle(Character_Position + Vector3.down, .2f, whatStopsMovement))
 			{
 				anim.SetBool("isMoving", true);
-				anim.Play("Player_Move_Down");
+				ChangeAnimationState(PLAYER_MOVE);
 				Character_Position += Vector3.down;
 				//transform.position = Character_Position;
 			}
@@ -188,7 +186,7 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeLeft()
 	{
-		aniDirection = "Left"
+		aniDirection = "Left";
 
 		//Do something when swiped left
 		if (!Attack(Vector3.left))
@@ -196,7 +194,7 @@ public class SwipeMove : MonoBehaviour
 			if (!Physics2D.OverlapCircle(Character_Position + Vector3.left, .2f, whatStopsMovement))
 			{	
 				anim.SetBool("isMoving", true);
-				anim.Play("Player_Move_Left");
+				ChangeAnimationState(PLAYER_MOVE);
 				Character_Position += Vector3.left;
 				//transform.position = Character_Position;
 			}
@@ -205,21 +203,21 @@ public class SwipeMove : MonoBehaviour
 
 	void OnSwipeRight()
 	{
-		aniDirection = "Right"
+		aniDirection = "Right";
 		//Do something when swiped right
 		if (!Attack(Vector3.right))
 		{
 			if (!Physics2D.OverlapCircle(Character_Position + Vector3.right, .2f, whatStopsMovement))
 			{
 				anim.SetBool("isMoving", true);
-				anim.Play("Player_Move_Right");
+				ChangeAnimationState(PLAYER_MOVE);
 				Character_Position += Vector3.right;
 				//transform.position = Character_Position;	
 					
 			}
 		}
 	}
-	
+
 	//=====================================================
 	// Attack tries to attack a position
 	//			returns false if nothing there
@@ -232,10 +230,25 @@ public class SwipeMove : MonoBehaviour
 			return false;//dont attack 
 		}else
 		{
+			anim.SetBool("isAttacking", true);
+			ChangeAnimationState(PLAYER_ATTACK);
+
 			Debug.Log("target: " + target);
 			target.GetComponent<EnemyHealth>().Damage(1);
 			//target.SendMessage("OnHit",damage);
 			return true;
 		}
 	}
+
+
+	//=====================================================
+    // ChangeAnimationState is a mini animation manager
+    //=====================================================
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimaton == newAnimation) return;
+
+        anim.Play(newAnimation + aniDirection);//aniDirection is imperative
+        currentAnimaton = newAnimation;
+    }
 }

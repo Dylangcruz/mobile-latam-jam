@@ -21,6 +21,17 @@ public class EnemyAI : MonoBehaviour
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
     bool moved = false;
+    
+    //Animator and Animation States
+	public Animator anim;
+	private string currentAnimaton; //this should be a State + aniDirection
+	private string aniDirection = "Down";
+
+    [SerializeField] private string enemyName;  //Skelly_Melee
+
+	private string ENEMY_IDLE;
+	private string ENEMY_MOVE;
+	private string ENEMY_ATTACK;
 
 
     Seeker seeker;
@@ -28,6 +39,10 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
+        ENEMY_IDLE = enemyName + "_Idle_";
+        ENEMY_MOVE = enemyName + "_Move_";
+        ENEMY_ATTACK = enemyName + "_Attack_";
+
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
@@ -60,13 +75,19 @@ public class EnemyAI : MonoBehaviour
     void Move()
     {
         Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
+        aniDirection = ChangeDirection(nextPosition);
 
         if(target.position != nextPosition)//if the target is not in the next spot
         {
-        transform.position = nextPosition;
+            //ATTACK ANIMATION
+            ChangeAnimationState(ENEMY_MOVE);
+            //MOVEMENT
+            transform.position = nextPosition;//should change this to MoveTowards()
+        
         }else // osea, target is here
         {
           //ATTACK ANIMATION
+          ChangeAnimationState(ENEMY_ATTACK);
           //DEPLETE HEALTH 
           targetHealth.Damage(1);
         }
@@ -100,4 +121,42 @@ public class EnemyAI : MonoBehaviour
             Move();//this also attacks
         }
     }
+
+	//=====================================================
+    // ChangeAnimationState is a mini animation manager
+    //=====================================================
+    void ChangeAnimationState(string newAnimation)
+    {
+		newAnimation = newAnimation + aniDirection;
+        if (currentAnimaton == newAnimation) return;
+
+        anim.Play(newAnimation);//aniDirection is imperative
+        currentAnimaton = newAnimation;
+    }
+	//=====================================================
+    // ChangeDirection checks whre the skelly is looking
+    //=====================================================
+    string ChangeDirection(Vector3 nextPosition)
+    {
+        Vector3 directionVector = nextPosition-transform.position;
+        Debug.Log(enemyName +" Direction Vector: "+ directionVector );
+        string direction = aniDirection;
+        if(directionVector.x == 0 && directionVector.y == 0) return direction;
+        if(directionVector.x != 0)
+        {
+            if(directionVector.x == 1f)
+            {
+                direction = "Right";
+            }else direction = "Left";
+        }else
+        {
+            if(directionVector.x == 1f)
+            {
+                direction = "Up";
+            }else direction = "Down";
+
+        }
+        return direction;
+    }
+
 }

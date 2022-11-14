@@ -625,8 +625,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.05157528, g: 0.10228625, b: 0.5754717, a: 1}
+  m_Sprite: {fileID: -211118520, guid: bce570b22b788014e910fc2d5a57f0a1, type: 3}
+  m_Color: {r: 0.22258809, g: 0.59793055, b: 0.7735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5276,8 +5276,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1654647721}
   - component: {fileID: 1654647722}
+  - component: {fileID: 1654647724}
+  - component: {fileID: 1654647723}
   m_Layer: 6
-  m_Name: EnemyGFX
+  m_Name: SkellyGFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5339,8 +5341,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8962264, g: 0.114142045, b: 0.114142045, a: 1}
+  m_Sprite: {fileID: -211118520, guid: bce570b22b788014e910fc2d5a57f0a1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5350,6 +5352,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1654647723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654647720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9463b982ce08c04438e9e2f24426433c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1654647724}
+--- !u!95 &1654647724
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654647720}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ec86986e78c4a514c8028da4797fa57f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1769278138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5538,7 +5573,7 @@ GameObject:
   - component: {fileID: 1889075598}
   - component: {fileID: 1889075602}
   m_Layer: 6
-  m_Name: Melee Enemy
+  m_Name: Skelly Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5559,6 +5594,8 @@ MonoBehaviour:
   targetObject: {fileID: 1769278139}
   counter: 0
   nextWaipointDistance: 3
+  anim: {fileID: 1654647724}
+  enemyName: Skelly_Melee
 --- !u!58 &1889075599
 CircleCollider2D:
   m_ObjectHideFlags: 0
