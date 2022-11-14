@@ -36,7 +36,9 @@ public class EnemyAI : MonoBehaviour
 
     Seeker seeker;
 
-    // Start is called before the first frame update
+	//=====================================================
+	// Start is called before the first frame update
+    //=====================================================
     void Start()
     { 
         ENEMY_IDLE = enemyName + "_Idle_";
@@ -54,47 +56,10 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    void UpdatePath()
-    {
-        if(seeker.IsDone())
-        {
-            seeker.StartPath(transform.position,target.position, OnPathComplete);
-        }
-    }
-
-
-    void OnPathComplete(Path p)
-    {
-        if(!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
-    }
-
-    void Move()
-    {
-        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
-        aniDirection = ChangeDirection(nextPosition);
-
-        if(target.position != nextPosition)//if the target is not in the next spot
-        {
-            //ATTACK ANIMATION
-            ChangeAnimationState(ENEMY_MOVE);
-            //MOVEMENT
-            transform.position = nextPosition;//should change this to MoveTowards()
-        
-        }else // osea, target is here
-        {
-          //ATTACK ANIMATION
-          ChangeAnimationState(ENEMY_ATTACK);
-          //DEPLETE HEALTH 
-          targetHealth.Damage(1);
-        }
-    }
-
-
+	//=====================================================
     // Update is called once per frame
+    //=====================================================
+
     void Update()
     {
         if (path == null)
@@ -121,6 +86,51 @@ public class EnemyAI : MonoBehaviour
             Move();//this also attacks
         }
     }
+    
+
+    void UpdatePath()
+    {
+        if(seeker.IsDone())
+        {
+            seeker.StartPath(transform.position,target.position, OnPathComplete);
+        }
+    }
+
+
+    void OnPathComplete(Path p)
+    {
+        if(!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+	//=====================================================
+    // Move() Checks the next position and either moves 
+    //          towards it or attacks it.
+    //=====================================================
+    void Move()
+    {
+        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
+        
+
+        if(target.position != nextPosition)//if the target is not in the next spot
+        {   //change direction
+            aniDirection = ChangeDirection(nextPosition);
+            //MOVE ANIMATION
+            ChangeAnimationState(ENEMY_MOVE);
+            //MOVEMENT
+            transform.position = nextPosition;//should change this to MoveTowards()
+        
+        }else // osea, target is here
+        {
+          aniDirection = ChangeDirection(target.position);
+          //ATTACK ANIMATION
+          ChangeAnimationState(ENEMY_ATTACK);
+          //DEPLETE HEALTH 
+          targetHealth.Damage(1);
+        }
+    }
 
 	//=====================================================
     // ChangeAnimationState is a mini animation manager
@@ -138,25 +148,36 @@ public class EnemyAI : MonoBehaviour
     //=====================================================
     string ChangeDirection(Vector3 nextPosition)
     {
-        Vector3 directionVector = nextPosition-transform.position;
+        Vector3 directionVector = nextPosition - transform.position;
+
         Debug.Log(enemyName +" Direction Vector: "+ directionVector );
         string direction = aniDirection;
-        if(directionVector.x == 0 && directionVector.y == 0) return direction;
-        if(directionVector.x != 0)
+        if(directionVector.x == 0 && directionVector.y == 0)
+        { 
+            return direction;
+        }else if(directionVector.x != 0 && directionVector.y == 0)
         {
-            if(directionVector.x == 1f)
+            if(directionVector.x >0)
             {
                 direction = "Right";
-            }else direction = "Left";
+            }else 
+            {
+                direction = "Left";
+            }
         }else
         {
-            if(directionVector.x == 1f)
+            if(directionVector.y >0)
             {
                 direction = "Up";
-            }else direction = "Down";
-
+            }else 
+            {
+                direction = "Down";
+            }   
         }
+        
+        Debug.Log(enemyName +" is Looking: " + direction);
         return direction;
+        
     }
 
 }
