@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-
-public class EnemyAI : MonoBehaviour
+  
+public class SkellyAI : MonoBehaviour
 {
 
     public GameObject targetObject;
@@ -22,17 +22,24 @@ public class EnemyAI : MonoBehaviour
     bool reachedEndOfPath = false;
     bool moved = false;
     
+  
     //Animator and Animation States
 	public Animator anim;
 	private string currentAnimaton; //this should be a State + aniDirection
 	private string aniDirection = "Down";
 
-    [SerializeField] private string enemyName;  //Skelly_Melee
+    private string enemyName;  //Skelly_Melee
 
 	private string ENEMY_IDLE;
 	private string ENEMY_MOVE;
 	private string ENEMY_ATTACK;
-
+    
+    public enum Type
+    {
+        Melee,
+        Ranged, 
+    }
+    public Type enemyType;
 
     Seeker seeker;
 
@@ -44,7 +51,7 @@ public class EnemyAI : MonoBehaviour
         ENEMY_IDLE = enemyName + "_Idle_";
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
-
+        enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
@@ -105,6 +112,7 @@ public class EnemyAI : MonoBehaviour
             currentWaypoint = 0;
         }
     }
+
 	//=====================================================
     // Move() Checks the next position and either moves 
     //          towards it or attacks it.
@@ -114,22 +122,41 @@ public class EnemyAI : MonoBehaviour
         Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
         
 
-        if(target.position != nextPosition)//if the target is not in the next spot
-        {   //change direction
-            aniDirection = ChangeDirection(nextPosition);
-            //MOVE ANIMATION
-            ChangeAnimationState(ENEMY_MOVE);
-            //MOVEMENT
-            transform.position = nextPosition;//should change this to MoveTowards()
+
+        aniDirection = ChangeDirection(target.position);
         
-        }else // osea, target is here
+        switch(enemyType)
         {
-          aniDirection = ChangeDirection(target.position);
-          //ATTACK ANIMATION
-          ChangeAnimationState(ENEMY_ATTACK);
-          //DEPLETE HEALTH 
-          targetHealth.Damage(1);
+            default:
+            case Type.Melee:
+                if(target.position != nextPosition)//if the target is not in the next spot
+                { 
+                //change direction
+                aniDirection = ChangeDirection(nextPosition);
+                //MOVE ANIMATION
+                ChangeAnimationState(ENEMY_MOVE);
+                //MOVEMENT
+                transform.position = nextPosition;//should change this to MoveTowards()
+        
+                }else // osea, target is here
+                {
+                    //ATTACK ANIMATION
+                    ChangeAnimationState(ENEMY_ATTACK);
+                    //DEPLETE HEALTH 
+                    targetHealth.Damage(1);
+                    
+                }
+                break;
+            case Type.Ranged:
+                    
+                //ATTACK ANIMATION
+                ChangeAnimationState(ENEMY_ATTACK);
+                //SUMMON ARROW
+
+                break;
         }
+
+
     }
 
 	//=====================================================
@@ -143,6 +170,7 @@ public class EnemyAI : MonoBehaviour
         anim.Play(newAnimation);//aniDirection is imperative
         currentAnimaton = newAnimation;
     }
+
 	//=====================================================
     // ChangeDirection checks whre the skelly is looking
     //=====================================================
@@ -157,7 +185,7 @@ public class EnemyAI : MonoBehaviour
             return direction;
         }else if(directionVector.x != 0 && directionVector.y == 0)
         {
-            if(directionVector.x >0)
+            if(directionVector.x > 0)
             {
                 direction = "Right";
             }else 
@@ -166,7 +194,7 @@ public class EnemyAI : MonoBehaviour
             }
         }else
         {
-            if(directionVector.y >0)
+            if(directionVector.y > 0)
             {
                 direction = "Up";
             }else 
