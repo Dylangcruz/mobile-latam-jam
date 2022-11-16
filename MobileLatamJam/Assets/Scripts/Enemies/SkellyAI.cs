@@ -41,6 +41,13 @@ public class SkellyAI : MonoBehaviour
     }
     public Type enemyType;
 
+    public int range = 3;
+    public GameObject arrowPrefab;
+
+    private Vector3 spawnPoint;
+    private Quaternion arrowRotation;
+
+
     Seeker seeker;
 
 	//=====================================================
@@ -51,7 +58,8 @@ public class SkellyAI : MonoBehaviour
         ENEMY_IDLE = enemyName + "_Idle_";
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
-        enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
+        enemyName = "Skelly_Melee";
+        // enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
@@ -122,7 +130,6 @@ public class SkellyAI : MonoBehaviour
         Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
         
 
-
         aniDirection = ChangeDirection(target.position);
         
         switch(enemyType)
@@ -148,11 +155,28 @@ public class SkellyAI : MonoBehaviour
                 }
                 break;
             case Type.Ranged:
-                    
-                //ATTACK ANIMATION
-                ChangeAnimationState(ENEMY_ATTACK);
-                //SUMMON ARROW
 
+                if( transform.position.x != target.position.x && transform.position.y != target.position.y 
+                || Mathf.Abs(transform.position.y - target.position.y) > range && Mathf.Abs(transform.position.x - target.position.x) > range)//if the target is not in range
+                    { 
+                    //change direction
+                    aniDirection = ChangeDirection(nextPosition);
+                    //MOVE ANIMATION
+                    ChangeAnimationState(ENEMY_MOVE);
+                    //MOVEMENT
+                    transform.position = nextPosition;//should change this to MoveTowards()
+            
+                }else // osea, target is here
+                {
+                    //ATTACK ANIMATION
+                    ChangeAnimationState(ENEMY_ATTACK);
+
+                    //SPAWN ARROW            
+                    var arrow = Instantiate(arrowPrefab, transform.position + spawnPoint,arrowRotation);            
+                    arrow.GetComponent<Arrow>().Initialize(aniDirection, range);
+                    
+                    
+                }
                 break;
         }
 
@@ -178,7 +202,7 @@ public class SkellyAI : MonoBehaviour
     {
         Vector3 directionVector = nextPosition - transform.position;
 
-        Debug.Log(enemyName +" Direction Vector: "+ directionVector );
+        Debug.Log(enemyName +"Direction Vector: "+ directionVector );
         string direction = aniDirection;
         if(directionVector.x == 0 && directionVector.y == 0)
         { 
@@ -188,18 +212,27 @@ public class SkellyAI : MonoBehaviour
             if(directionVector.x > 0)
             {
                 direction = "Right";
+                spawnPoint = new Vector3 (1f, 0, 0 );
+                arrowRotation = Quaternion.Euler(0,0,0);
             }else 
             {
                 direction = "Left";
+                spawnPoint = new Vector3 (-1f, 0, 0 );
+                arrowRotation = Quaternion.Euler(0,180,0);
+
             }
         }else
         {
             if(directionVector.y > 0)
             {
                 direction = "Up";
+                spawnPoint = new Vector3 (0 , 1f, 0 );
+                arrowRotation = Quaternion.Euler(0,0,90);
             }else 
             {
                 direction = "Down";
+                spawnPoint = new Vector3 (0 , -1f, 0 );
+                arrowRotation = Quaternion.Euler(0,0,270);
             }   
         }
         

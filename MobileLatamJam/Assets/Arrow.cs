@@ -6,44 +6,51 @@ public class Arrow : MonoBehaviour
 {
     //keep reference of the conductor:
 
-    public float speed = 3;
+    public float speed = 10;
     public Rigidbody2D rb;
 
     private string direction;
-    
-    public Sprite DownArrow;
-    public Sprite UpArrow;
-    public Sprite LeftArrow;
-    public Sprite RightArrow;
+    private Vector3 initialPosition;
+    private int range=3;
 
-    public void Initialize(string direct)
+    public void Initialize(string direct, int expectedRange)
     {
         direction = direct;
+        range = expectedRange;
+        initialPosition =transform.position;
 
         switch(direction)
         {
             case "Right":
-            
-                rb.velocity = transform.right * speed;
                 break;
 
             case "Left":
 
-                rb.velocity = -transform.right * speed;
+                //transform.rotation = Quaternion.Euler(0,180,0);
                 break;
 
             case "Up":
-                rb.velocity = transform.up * speed;
+                //transform.rotation = Quaternion.Euler(0,90,0);
                 break;
 
             case "Down":
-                rb.velocity = -transform.up * speed;
+                //transform.rotation = Quaternion.Euler(0,270,0);
                 break;
+        }
+        rb.velocity = transform.right * speed;
+    }
+    void Update()
+    {
+        if(Mathf.Abs(transform.position.x - initialPosition.x) > range  
+        || Mathf.Abs(transform.position.y - initialPosition.y) > range)
+        {
+            Destroy(gameObject);
         }
     }
 
-    void OnTrigger2D(Collider2D hitInfo)
+    void OnTriggerEnter2D(Collider2D hitInfo)
     { 
+        Debug.Log("Arrow hit: " + hitInfo.name);
         Destroy(gameObject);
     }
 }
