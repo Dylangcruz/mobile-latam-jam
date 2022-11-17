@@ -59,7 +59,7 @@ public class SkellyAI : MonoBehaviour
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
         enemyName = "Skelly_Melee";
-        // enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
+        //enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
@@ -67,7 +67,7 @@ public class SkellyAI : MonoBehaviour
         
         seeker = GetComponent<Seeker>();
 
-        InvokeRepeating("UpdatePath",0f,.5f);
+        InvokeRepeating("UpdatePath",0f,conductorinstance.secPerBeat);
     }
 
 

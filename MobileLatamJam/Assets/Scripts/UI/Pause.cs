@@ -19,7 +19,7 @@ public class Pause : MonoBehaviour
             Time.timeScale = 0;
             print("Hi!");
             Debug.Log("Hi!");
-            Time.timeScale = 1;
+            // Time.timeScale = 1;
             isGamePaused = true;
         }
 

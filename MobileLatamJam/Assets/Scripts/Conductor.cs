@@ -65,16 +65,13 @@ public class Conductor : MonoBehaviour
         {
             lastBeat = songPositionInBeats;
             //instantiate indicators
-            var beatIndicatorRight = Instantiate(beatIndicatorPrefab, new Vector2(250, 420), Quaternion.identity,GameObject.FindGameObjectWithTag("Canvas").transform);
-            var beatIndicatorLeft = Instantiate(beatIndicatorPrefab, new Vector2(-250, 420), Quaternion.Euler(0,180,0),GameObject.FindGameObjectWithTag("Canvas").transform);
-
-            //beatIndicatorRight.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform,false);
-            //beatIndicatorLeft.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform,false);
-
+            var beatIndicatorRight = Instantiate(beatIndicatorPrefab, new Vector2(250, 390), Quaternion.identity,GameObject.FindGameObjectWithTag("Canvas").transform);
+            var beatIndicatorLeft = Instantiate(beatIndicatorPrefab, new Vector2(-250, 390), Quaternion.Euler(0,180,0),GameObject.FindGameObjectWithTag("Canvas").transform);
 
             //initialize their values
-            beatIndicatorRight.GetComponent<Beat_Indicator>().Initialize(this, 250, 30, 420, songPositionInBeats);
-            beatIndicatorLeft.GetComponent<Beat_Indicator>().Initialize(this, -250, -30, 420, songPositionInBeats);
+            
+            beatIndicatorRight.GetComponent<Beat_Indicator>().Initialize(this, 250, 30, 390, songPositionInBeats);
+            beatIndicatorLeft.GetComponent<Beat_Indicator>().Initialize(this, -250, -30, 390, songPositionInBeats);
         }
     }
 

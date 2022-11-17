@@ -31,6 +31,7 @@ public class SwipeMove : MonoBehaviour
 	public LayerMask whatStopsMovement;
 	public LayerMask enemies;
 
+	private AudioSource soundFX;
 
 	//=====================================================
 	// Start is called before the first frame update
@@ -39,7 +40,7 @@ public class SwipeMove : MonoBehaviour
     {
 		Character_Position = transform.position;
 		conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
-
+		soundFX = GetComponent<AudioSource>();
 		anim.speed = conductorinstance.songBpm;
 	}
 
@@ -77,6 +78,8 @@ public class SwipeMove : MonoBehaviour
 					{	
 					fingerDownPos = touch.position;
 					DetectSwipe();
+					soundFX.Play();
+					
 					}
 				}
 			}
@@ -163,6 +166,7 @@ public class SwipeMove : MonoBehaviour
 				ChangeAnimationState(PLAYER_MOVE);
 
 				Character_Position += Vector3.up;
+
 				//transform.position = Character_Position;
 			}
 		}
@@ -246,9 +250,10 @@ public class SwipeMove : MonoBehaviour
     //=====================================================
     void ChangeAnimationState(string newAnimation)
     {
+		newAnimation = newAnimation + aniDirection;
         if (currentAnimaton == newAnimation) return;
 
-        anim.Play(newAnimation + aniDirection);//aniDirection is imperative
+        anim.Play(newAnimation);//aniDirection is imperative
         currentAnimaton = newAnimation;
     }
 }
