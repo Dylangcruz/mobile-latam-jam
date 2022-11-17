@@ -17,6 +17,7 @@ public class Beat_Indicator : MonoBehaviour
     public Vector3 startVector;
     public Vector3 endVector;
     private float interpolationRatio;
+    
 
     public void Initialize(Conductor conductor, float startX, float endX, float posY, float beat)
     {
