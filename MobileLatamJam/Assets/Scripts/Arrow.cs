@@ -50,6 +50,7 @@ public class Arrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     { 
+        hitInfo.GetComponent<PlayerHealth>().Damage(1);
         Debug.Log("Arrow hit: " + hitInfo.name);
         Destroy(gameObject);
     }
