@@ -18,6 +18,7 @@ public class SkellyAI : MonoBehaviour
     private int currentBeat=-1;
 
     Path path;
+    
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
     bool moved = false;
@@ -46,6 +47,7 @@ public class SkellyAI : MonoBehaviour
 
     private Vector3 spawnPoint;
     private Quaternion arrowRotation;
+    public LayerMask enemies;
 
 
     Seeker seeker;
@@ -58,8 +60,8 @@ public class SkellyAI : MonoBehaviour
         ENEMY_IDLE = enemyName + "_Idle_";
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
-        enemyName = "Skelly_Melee";
-        //enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
+        enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
+        
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
@@ -97,14 +99,18 @@ public class SkellyAI : MonoBehaviour
         {
             currentBeat = conductorinstance.songPositionInBeats;//update which beat we're on
             UpdatePath();//update the path enemy is taking
-
-            Move();//this also attacks
+            if(Vector3.Distance(transform.position, target.position) < range + 3)//if target got away is in range
+            {
+                Move();//this also attacks
+            }
+            
         }
     }
     
 
     void UpdatePath()
     {
+        //path.active.Scan();
         if(seeker.IsDone())
         {
             seeker.StartPath(transform.position,target.position, OnPathComplete);
@@ -127,37 +133,16 @@ public class SkellyAI : MonoBehaviour
     //=====================================================
     void Move()
     {
-        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move
-        
-
+        Vector3 nextPosition =  path.vectorPath[1] + Vector3.back;//where we wanna move+
         aniDirection = ChangeDirection(target.position);
-        
-        switch(enemyType)
-        {
-            default:
-            case Type.Melee:
-                if(target.position != nextPosition)//if the target is not in the next spot
-                { 
-                //change direction
-                aniDirection = ChangeDirection(nextPosition);
-                //MOVE ANIMATION
-                ChangeAnimationState(ENEMY_MOVE);
-                //MOVEMENT
-                transform.position = nextPosition;//should change this to MoveTowards()
-        
-                }else // osea, target is here
-                {
-                    //ATTACK ANIMATION
-                    ChangeAnimationState(ENEMY_ATTACK);
-                    //DEPLETE HEALTH 
-                    targetHealth.Damage(1);
-                    
-                }
-                break;
-            case Type.Ranged:
 
-                if( transform.position.x != target.position.x && transform.position.y != target.position.y 
-                || Mathf.Abs(transform.position.y - target.position.y) > range && Mathf.Abs(transform.position.x - target.position.x) > range)//if the target is not in range
+        if(!Physics2D.OverlapCircle( nextPosition,.2f, enemies))
+        {
+            switch(enemyType)
+            {
+                default:
+                case Type.Melee:
+                    if(target.position != nextPosition)//if the target is not in the next spot
                     { 
                     //change direction
                     aniDirection = ChangeDirection(nextPosition);
@@ -166,19 +151,41 @@ public class SkellyAI : MonoBehaviour
                     //MOVEMENT
                     transform.position = nextPosition;//should change this to MoveTowards()
             
-                }else // osea, target is here
-                {
-                    //ATTACK ANIMATION
-                    ChangeAnimationState(ENEMY_ATTACK);
+                    }else // osea, target is here
+                    {
+                        //ATTACK ANIMATION
+                        ChangeAnimationState(ENEMY_ATTACK);
+                        //DEPLETE HEALTH 
+                        targetHealth.Damage(1);
+                        
+                    }
+                    break;
+                case Type.Ranged:
 
-                    //SPAWN ARROW            
-                    var arrow = Instantiate(arrowPrefab, transform.position + spawnPoint,arrowRotation);            
-                    arrow.GetComponent<Arrow>().Initialize(aniDirection, range);
-                    
-                    
-                }
-                break;
-        }
+                    if( transform.position.x != target.position.x && transform.position.y != target.position.y 
+                    || Mathf.Abs(transform.position.y - target.position.y) > range && Mathf.Abs(transform.position.x - target.position.x) > range)//if the target is not in range
+                        { 
+                        //change direction
+                        aniDirection = ChangeDirection(nextPosition);
+                        //MOVE ANIMATION
+                        ChangeAnimationState(ENEMY_MOVE);
+                        //MOVEMENT
+                        transform.position = nextPosition;//should change this to MoveTowards()
+                
+                    }else // osea, target is here
+                    {
+                        //ATTACK ANIMATION
+                        ChangeAnimationState(ENEMY_ATTACK);
+
+                        //SPAWN ARROW            
+                        var arrow = Instantiate(arrowPrefab, transform.position + spawnPoint,arrowRotation);            
+                        arrow.GetComponent<Arrow>().Initialize(aniDirection, range);
+                        
+                        
+                    }
+                    break;
+            }
+        }//else theres another enemy in my way
 
 
     }
@@ -191,7 +198,7 @@ public class SkellyAI : MonoBehaviour
 		newAnimation = newAnimation + aniDirection;
         if (currentAnimaton == newAnimation) return;
 
-        anim.Play(newAnimation);//aniDirection is imperative
+        anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);//aniDirection is imperative
         currentAnimaton = newAnimation;
     }
 

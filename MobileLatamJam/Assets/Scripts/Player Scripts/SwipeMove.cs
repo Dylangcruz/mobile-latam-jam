@@ -12,7 +12,7 @@ public class SwipeMove : MonoBehaviour
 
 	public float SWIPE_THRESHOLD = 20f;
 
-	private Vector3 Character_Position;
+	public static Vector3 Character_Position;
 	
 	
 	//Animator and Animation States
@@ -41,7 +41,7 @@ public class SwipeMove : MonoBehaviour
 		Character_Position = transform.position;
 		conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
 		soundFX = GetComponent<AudioSource>();
-		anim.speed = conductorinstance.songBpm;
+		anim.speed = conductorinstance.songBpm;//60;
 	}
 
 	//=====================================================
@@ -253,7 +253,7 @@ public class SwipeMove : MonoBehaviour
 		newAnimation = newAnimation + aniDirection;
         if (currentAnimaton == newAnimation) return;
 
-        anim.Play(newAnimation);//aniDirection is imperative
+        anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);//aniDirection is imperative
         currentAnimaton = newAnimation;
     }
 }
