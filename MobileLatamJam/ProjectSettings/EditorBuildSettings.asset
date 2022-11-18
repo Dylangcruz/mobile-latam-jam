@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Dylan.unity
+    guid: 4897f84a637a9e34d8761c3347c3822f
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 8a78daf7ad3f1a24e909c1f65836f6e5, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 7dd89177c3a61744ebbafd25d529761c, type: 2}
