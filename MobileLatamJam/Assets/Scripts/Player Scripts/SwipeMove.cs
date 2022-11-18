@@ -41,7 +41,7 @@ public class SwipeMove : MonoBehaviour
 		Character_Position = transform.position;
 		conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
 		soundFX = GetComponent<AudioSource>();
-		anim.speed = conductorinstance.songBpm;//60;
+		anim.speed = conductorinstance.songBpm/60;//animations are made calculated to 1 sec 1/60 is to 1 min * bpm = per beat....speed = beat
 	}
 
 	//=====================================================

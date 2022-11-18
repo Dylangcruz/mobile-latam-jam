@@ -7,14 +7,17 @@ public class SkellyAI : MonoBehaviour
 {
 
     public GameObject targetObject;
+    public GameObject arrowPrefab;
+    
     private Transform target;
     private  PlayerHealth targetHealth;
-    public int counter = 0; 
+   
+    private int counter = 0; 
     public float nextWaipointDistance = 3f;
 
     private GameObject ConductorObject;
 	private Conductor conductorinstance;
-
+    
     private int currentBeat=-1;
 
     Path path;
@@ -34,23 +37,24 @@ public class SkellyAI : MonoBehaviour
 	private string ENEMY_IDLE;
 	private string ENEMY_MOVE;
 	private string ENEMY_ATTACK;
-    
+
+    public enum Form
+    {
+        Imp,
+        Skelly, 
+    } 
     public enum Type
     {
         Melee,
         Ranged, 
     }
-     public enum Form
-    {
-        Imp,
-        Skelly, 
-    }
+    
 
     public Form enemyForm;
     public Type enemyType;
     
     public int range = 3;
-    public GameObject arrowPrefab;
+    
 
     private Vector3 spawnPoint;
     private Quaternion arrowRotation;
@@ -64,17 +68,23 @@ public class SkellyAI : MonoBehaviour
     //=====================================================
     void Start()
     { 
+        conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
+
+        enemyName = ((enemyForm == Form.Imp)? "Imp" : "Skelly") 
+                  + ((enemyType == Type.Melee)? "_Melee" : "_Ranged");
+
         ENEMY_IDLE = enemyName + "_Idle_";
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
-        enemyName = ((enemyForm == Form.Imp)? "Imp" : "Skelly") 
-                  + ((enemyType == Type.Melee)? "_Melee" : "_Ranged");
+        
+
+        anim.speed = conductorinstance.songBpm/60;//animations are made calculated to 1 sec 1/60 is to 1 min * bpm = per beat....speed = beat
+
         Debug.Log("Name: "+ enemyName);
         
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
 
-        conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
         
         seeker = GetComponent<Seeker>();
 
@@ -158,7 +168,11 @@ public class SkellyAI : MonoBehaviour
                     //MOVE ANIMATION
                     ChangeAnimationState(ENEMY_MOVE);
                     //MOVEMENT
-                    transform.position = nextPosition;//should change this to MoveTowards()
+                    //transform.position = nextPosition;//should change this to MoveTowards()
+                    transform.position = Vector3.MoveTowards(transform.position, 
+													nextPosition, 
+													3/(conductorinstance.secPerBeat * 60));
+                
             
                     }else // osea, target is here
                     {
@@ -179,7 +193,10 @@ public class SkellyAI : MonoBehaviour
                         //MOVE ANIMATION
                         ChangeAnimationState(ENEMY_MOVE);
                         //MOVEMENT
-                        transform.position = nextPosition;//should change this to MoveTowards()
+                        //transform.position = nextPosition;//should change this to MoveTowards()
+                        transform.position = Vector3.MoveTowards(transform.position, 
+													nextPosition, 
+													3/(conductorinstance.secPerBeat * 60));
                 
                     }else // osea, target is here
                     {
@@ -204,10 +221,10 @@ public class SkellyAI : MonoBehaviour
     //=====================================================
     void ChangeAnimationState(string newAnimation)
     {
-		newAnimation = newAnimation + aniDirection;
+		newAnimation = newAnimation + aniDirection;//aniDirection is imperative
         if (currentAnimaton == newAnimation) return;
-
-        anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);//aniDirection is imperative
+        Debug.Log("play: "+newAnimation);
+        anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);
         currentAnimaton = newAnimation;
     }
 

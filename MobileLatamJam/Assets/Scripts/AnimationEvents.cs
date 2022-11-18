@@ -11,5 +11,8 @@ public class AnimationEvents : MonoBehaviour
     {
         anim.SetBool("isAttacking", false);
     }
-
+    void DoNothing()
+    {
+        //guess what this does
+    }
 }
