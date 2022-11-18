@@ -40,8 +40,15 @@ public class SkellyAI : MonoBehaviour
         Melee,
         Ranged, 
     }
-    public Type enemyType;
+     public enum Form
+    {
+        Imp,
+        Skelly, 
+    }
 
+    public Form enemyForm;
+    public Type enemyType;
+    
     public int range = 3;
     public GameObject arrowPrefab;
 
@@ -60,7 +67,9 @@ public class SkellyAI : MonoBehaviour
         ENEMY_IDLE = enemyName + "_Idle_";
         ENEMY_MOVE = enemyName + "_Move_";
         ENEMY_ATTACK = enemyName + "_Attack_";
-        enemyName = (enemyType == Type.Melee)? "Skelly_Melee" : "Skelly_Ranged";
+        enemyName = ((enemyForm == Form.Imp)? "Imp" : "Skelly") 
+                  + ((enemyType == Type.Melee)? "_Melee" : "_Ranged");
+        Debug.Log("Name: "+ enemyName);
         
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
