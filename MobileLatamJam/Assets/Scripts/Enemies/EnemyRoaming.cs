@@ -52,8 +52,8 @@ public class EnemyRoaming : MonoBehaviour
 
     Vector3 RandomPosition(Vector3 initialPosition)
     {
-        var newtarget = new Vector3 ( Mathf.Floor(Random.Range(initialPosition.x -3,initialPosition.x + 3)) + .5f,
-                                        Mathf.Floor(Random.Range(initialPosition.y -3,initialPosition.y +3))+ .5f,-1); 
+        var newtarget = new Vector3 ( Mathf.Floor(Random.Range(initialPosition.x -3,initialPosition.x + 3)) ,
+                                        Mathf.Floor(Random.Range(initialPosition.y -3,initialPosition.y +3)),-1); 
         return newtarget;
     }
 
