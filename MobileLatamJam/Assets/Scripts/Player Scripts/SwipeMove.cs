@@ -251,7 +251,7 @@ public class SwipeMove : MonoBehaviour
     void ChangeAnimationState(string newAnimation)
     {
 		newAnimation = newAnimation + aniDirection;
-        if (currentAnimaton == newAnimation) return;
+       // if (currentAnimaton == newAnimation) return;
 
         anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);//aniDirection is imperative
         currentAnimaton = newAnimation;

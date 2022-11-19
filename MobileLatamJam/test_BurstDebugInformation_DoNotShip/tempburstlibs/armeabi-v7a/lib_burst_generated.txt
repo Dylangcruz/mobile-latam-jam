@@ -141,6 +141,7 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.VisualScripting.State.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\AstarPathfindingProject.dll
+--root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Environments.Internal.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Burst.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.2D.Animation.Runtime.dll
@@ -152,7 +153,6 @@ Library: lib_burst_generated
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Internal.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Analytics.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.2D.SpriteShape.Runtime.dll
---root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.Services.Core.Registration.dll
 --root-assembly=C:\Users\Dylan\Desktop\Personal Projects\mobile-latam-jam\MobileLatamJam\Temp\StagingArea\Data\Managed\Unity.2D.PixelPerfect.dll

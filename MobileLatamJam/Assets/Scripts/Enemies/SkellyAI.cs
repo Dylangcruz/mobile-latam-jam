@@ -69,7 +69,6 @@ public class SkellyAI : MonoBehaviour
     void Start()
     { 
         conductorinstance = GameObject.Find("Conductor").GetComponent<Conductor>();
-
         enemyName = ((enemyForm == Form.Imp)? "Imp" : "Skelly") 
                   + ((enemyType == Type.Melee)? "_Melee" : "_Ranged");
 
@@ -81,9 +80,10 @@ public class SkellyAI : MonoBehaviour
         anim.speed = conductorinstance.songBpm/60;//animations are made calculated to 1 sec 1/60 is to 1 min * bpm = per beat....speed = beat
 
         Debug.Log("Name: "+ enemyName);
-        
+        targetObject = GameObject.Find("Player");
         target = targetObject.transform;
         targetHealth = targetObject.GetComponent<PlayerHealth>();
+        //targetposition = targetObject.GetComponent<SwipeMove>().Character_Position;
 
         
         seeker = GetComponent<Seeker>();
@@ -168,10 +168,10 @@ public class SkellyAI : MonoBehaviour
                     //MOVE ANIMATION
                     ChangeAnimationState(ENEMY_MOVE);
                     //MOVEMENT
-                    //transform.position = nextPosition;//should change this to MoveTowards()
-                    transform.position = Vector3.MoveTowards(transform.position, 
-													nextPosition, 
-													3/(conductorinstance.secPerBeat * 60));
+                    transform.position = nextPosition;//should change this to MoveTowards()
+                    // transform.position = Vector3.MoveTowards(transform.position, 
+					// 								nextPosition, 
+					// 								3/(conductorinstance.secPerBeat * 60));
                 
             
                     }else // osea, target is here
@@ -193,10 +193,10 @@ public class SkellyAI : MonoBehaviour
                         //MOVE ANIMATION
                         ChangeAnimationState(ENEMY_MOVE);
                         //MOVEMENT
-                        //transform.position = nextPosition;//should change this to MoveTowards()
-                        transform.position = Vector3.MoveTowards(transform.position, 
-													nextPosition, 
-													3/(conductorinstance.secPerBeat * 60));
+                        transform.position = nextPosition;//should change this to MoveTowards()
+                        // transform.position = Vector3.MoveTowards(transform.position, 
+						// 							nextPosition, 
+						// 							3/(conductorinstance.secPerBeat * 60));
                 
                     }else // osea, target is here
                     {
@@ -222,7 +222,7 @@ public class SkellyAI : MonoBehaviour
     void ChangeAnimationState(string newAnimation)
     {
 		newAnimation = newAnimation + aniDirection;//aniDirection is imperative
-        if (currentAnimaton == newAnimation) return;
+       // if (currentAnimaton == newAnimation) return;
         Debug.Log("play: "+newAnimation);
         anim.Play(newAnimation,0, conductorinstance.songPositionInBeatsUnfloored-conductorinstance.songPositionInBeats);
         currentAnimaton = newAnimation;
