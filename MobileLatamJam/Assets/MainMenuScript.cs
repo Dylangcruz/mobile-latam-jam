@@ -19,7 +19,7 @@ public class MainMenuScript : MonoBehaviour
             if(touch.phase == TouchPhase.Ended)
             {
                 print("100000");
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
         }
         
